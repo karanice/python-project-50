@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-from gendiff.modules.help import parser_print_help
+from gendiff.modules.help import print_parser
 
 
 def main():
-    parser_print_help()
+    print_parser()
 
 
 if __name__ == '__main__':
