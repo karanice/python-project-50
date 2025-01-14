@@ -10,7 +10,7 @@ build:
 test:
 	uv run pytest
 
-test-cov:
+test-coverage:
 	uv run pytest --cov
 
 check: test lint
