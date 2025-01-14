@@ -1,11 +1,7 @@
 import json
 
+from gendiff.parse_json import get_json
 
-# def get_json(filename):
-#     return json.load(open(f'files/{filename}.json'))
-
-def get_json(file_path):
-    return json.load(open(file_path))
 
 def generate_diff(file_1, file_2):
     file1 = get_json(file_1)
@@ -19,23 +15,18 @@ def generate_diff(file_1, file_2):
 
     has1 = keys1.difference(keys2)
     has2 = keys2.difference(keys1)
-    #have_both = keys1.intersection(keys2)
+    # have_both = keys1.intersection(keys2)
     
     for key in all_keys:
         if key in has1:
-            #new_key = f'- {key}'
             result[f'- {key}'] = file1[key]
         elif key in has2:
             result[f'+ {key}'] = file2[key]
-        else: #elif key in have_both и добавить else с ошибкой например
+        else:  # elif key in have_both и добавить else с ошибкой например
             if file1[key] == file2[key]:
                 result[f'  {key}'] = file1[key]
             else:
                 result[f'- {key}'] = file1[key]
                 result[f'+ {key}'] = file2[key]
 
-
     return ((json.dumps(result, indent=2)).replace('"', '')).replace(',', '')
-    # ужас
-    
-    
