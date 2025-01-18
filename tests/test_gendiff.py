@@ -1,6 +1,6 @@
 from pathlib import Path
 from gendiff.generate_diff import generate_diff
-from gendiff.parse_json import get_json
+#from gendiff.parse_json import get_json
 
 generate_diff_plain_json = '{'\
 '  - follow: false'\
@@ -31,5 +31,14 @@ def test_generate_diff_plain_json():
     # parsed_json2 = get_json(json2)
     expected = read_file('plain_json_diff.txt')
     actual = generate_diff(json1, json2)
+
+    assert actual == expected
+
+
+def test_generate_diff_plain_yaml():
+    yaml1 = get_test_data_path('file1.yml')
+    yaml2 = get_test_data_path('file2.yml')
+    expected = read_file('plain_yaml_diff.txt')
+    actual = generate_diff(yaml1, yaml2)
 
     assert actual == expected
