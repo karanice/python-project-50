@@ -7,6 +7,9 @@ lint:
 build:
 	uv build
 
+package-install:
+	uv tool install dist/*.whl
+
 test:
 	uv run pytest
 
