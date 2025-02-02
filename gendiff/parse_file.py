@@ -12,5 +12,5 @@ def get_yaml(file_path):
     return yaml.load(open(file_path), Loader=yaml.FullLoader)
 
 
-def parse(file):
-    return get_json(file) if Path(file).suffix == 'json' else get_yaml(file)
+def parse(file_path):
+    return get_json(file_path) if Path(file_path).suffix == 'json' else get_yaml(file_path)
