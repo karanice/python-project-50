@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from gendiff.parser import print_parser
+from gendiff.cli import print_parser
 
 
 def main():

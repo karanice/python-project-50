@@ -1,17 +1,13 @@
-import argparse
+import json
+from os.path import splitext
 
-from gendiff.generate_diff import generate_diff
-from gendiff.formatter import default_formatter
-from gendiff.parse_file import parse
-
-parser = argparse.ArgumentParser(
-    description='Compares two configuration files and shows a difference.')
-
-parser.add_argument('first_file', type=str)
-parser.add_argument('second_file', type=str)
-parser.add_argument('-f', '--format', help='set format of output')
-args = parser.parse_args()
+import yaml
 
 
-def print_parser():
-    print(default_formatter(generate_diff(args.first_file, args.second_file)))
+def parse(file_path):
+    match splitext(file_path)[1]:
+        case '.json':
+            return json.load(open(file_path))
+        case '.yml' | '.yaml':
+            return yaml.load(open(file_path), Loader=yaml.FullLoader)
+    
