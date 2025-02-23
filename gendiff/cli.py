@@ -9,7 +9,10 @@ parser = argparse.ArgumentParser(
 parser.add_argument('first_file', type=str)
 parser.add_argument('second_file', type=str)
 parser.add_argument('-f', '--format', help='set format of output')
+args = parser.parse_args()
+# не стала убирать эту строку и передавать напрямую в generate_diff,
+# потому что тогда ругается на длину строки
 
 
 def print_parser():
-    print(stylish(generate_diff(parser.parse_args().first_file, parser.parse_args().second_file)))
+    print(stylish(generate_diff(args.first_file, args.second_file)))
