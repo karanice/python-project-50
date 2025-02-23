@@ -14,8 +14,12 @@ def make_diff_tree(file1, file2):
         cond1 = (key in has1)
         cond2 = (key in has2)
         cond3 = (key in common and (type(file1[key]) is not type(file2[key])))
-        cond4 = (key in common and not (type(file1[key]) is dict or type(file2[key]) is dict))
+        cond4 = (key in common and not (type(file1[key]) is dict or
+                                        type(file2[key]) is dict))
         if (cond1 or cond2 or cond3 or cond4):
+            # тут костыли в виде скобок этих, 
+            # не получилось с +\- перед ключом сделать,
+            # там отступы ломаются чудовищным образом
             if cond1:
                 result[f'{key}(removed)'] = file1[key]
             elif cond2:
