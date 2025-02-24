@@ -53,7 +53,5 @@ def test_generate_diff_plain_tree_json():
     tree_json2 = get_test_data_path('file2_tree.json')
     expected = read_file('tree_diff_plain.txt')
     actual = plain(generate_diff(tree_json1, tree_json2))
-    with open('checker.txt', 'w') as f:
-        f.write(actual)
 
     assert actual == expected
