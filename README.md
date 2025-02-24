@@ -12,3 +12,7 @@
 ### YAML
 
 [![asciicast](https://asciinema.org/a/698863.svg)](https://asciinema.org/a/698863)
+
+### Tree-files and formatters
+
+[![asciicast](https://asciinema.org/a/705067.svg)](https://asciinema.org/a/705067)
