@@ -1,5 +1,5 @@
-import json as jsn
+from json import dumps
 
 
 def json(diff):
-    return jsn.dumps(diff, indent=4)
+    return dumps(diff, indent=4)
