@@ -10,9 +10,10 @@ This project is made with `uv` package manager and `argparse` library. `ruff` is
 
 ### Description
 
-This cli-app is designed for finding the difference between two tree sructures. 
-The following formats are supported: JSON, YAML.
-The type of output can be customized using the available formatters.
+This cli-app is designed for finding the difference between two tree sructures. \
+The following formats are supported: JSON, YAML. \
+The type of output can be customized using the available formatters. \
+Function `generate-diff` for generating an internal representation of difference (as python dict) can be also imported from package.
 
 ### Installation 
 
