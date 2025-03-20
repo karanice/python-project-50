@@ -1,13 +1,11 @@
 import json
-from os.path import splitext
-
 import yaml
 
 
-def parse(file_path):
-    match splitext(file_path)[1]:
+def parse(file, ext):
+    match ext:
         case '.json':
-            return json.load(open(file_path))
+            return json.load(open(file))
         case '.yml' | '.yaml':
-            return yaml.load(open(file_path), Loader=yaml.FullLoader)
+            return yaml.load(open(file), Loader=yaml.FullLoader)
     
