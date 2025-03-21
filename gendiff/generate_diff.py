@@ -1,7 +1,8 @@
+from os.path import splitext
+
 from gendiff.make_diff_tree import make_diff_tree
 from gendiff.parser import parse
 from gendiff.styles import format_diff
-from os.path import splitext
 
 
 def get_ext(file_path):
