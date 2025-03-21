@@ -10,6 +10,8 @@ def fix_value(value):  # приведение значений в соответ
         addition = '[complex value]'
     elif isinstance(value, bool):
         addition = str(value).lower()
+    elif isinstance(value, int):
+        addition = str(value)
     elif value is None:
         addition = 'null'
     else:
