@@ -1,16 +1,16 @@
-from gendiff.styles.json import json
-from gendiff.styles.plain import plain
-from gendiff.styles.stylish import stylish
+from gendiff.styles.to_json import to_json
+from gendiff.styles.to_plain import to_plain
+from gendiff.styles.to_stylish import to_stylish
 
 
 def format_diff(diff, format):
     match format:
         case 'stylish':
-            return stylish(diff)
+            return to_stylish(diff)
         case 'plain':
-            return plain(diff)
+            return to_plain(diff)
         case 'json':
-            return json(diff)
+            return to_json(diff)
         
 
 __all__ = (
