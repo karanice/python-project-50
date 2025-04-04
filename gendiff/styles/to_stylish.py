@@ -1,34 +1,39 @@
-import json
+from json import dumps
 
 
-def find_first_letter_index(string):
-    copy = string[:]
-    reduced_copy = copy.strip()
-    first_letter = list(reduced_copy)[0]
-    return list(string).index(first_letter)
+def format_value(value, depth):
+    if isinstance(value, dict): 
+        res_strs = dumps(value, indent=4 * (depth + 1)).split('\n')
+        N = len(res_strs) - 1
+        for i in range(1, N):
+            res_strs[i] = f'    {res_strs[i]}'
+        res_strs[N] = f'{(depth + 1) * "    "}{res_strs[N]}'
+        return '\n'.join(res_strs)
+    elif isinstance(value, bool):
+        return str(value).lower()
+    elif isinstance(value, int):
+        return str(value)
+    elif value is None:
+        return 'null'
+    else:
+        return f'{value}'
 
 
-def add_sym(string, seq_to_delete, sym):
-    space_to_replace_index = find_first_letter_index(string) - 2
-    res_list = list(string.replace(seq_to_delete, ''))
-    res_list[space_to_replace_index] = sym
-    return ''.join(res_list)
-
-
-def to_stylish(dict):
-    res = ((json.dumps(dict, indent=4)).replace('"', '')).replace(',', '')
-    strings = res.split('\n')
-    new_strings = []
-
-    for string in strings:
-        if '(added)' in string:
-            new_string = add_sym(string, '(added)', '+')
-        elif '(removed)' in string:
-            new_string = add_sym(string, '(removed)', '-')
-        elif '(not changed)' in string:
-            new_string = string.replace('(not changed)', '')
-        else:
-            new_string = string
-        new_strings.append(new_string)
-
-    return '\n'.join(new_strings)
+def to_stylish(diff, depth=0):
+    tab = "    " * depth
+    raw_res = "{\n"
+    for k, v in diff.items():
+        match v["type"]:
+            case "unchanged":
+                raw_res += f'{tab}    {k}: {format_value(v["value"], depth)}\n'
+            case "added":
+                raw_res += f'{tab}  + {k}: {format_value(v["value"], depth)}\n'
+            case "removed":
+                raw_res += f'{tab}  - {k}: {format_value(v["value"], depth)}\n'
+            case "updated":
+                raw_res += f'{tab}  - {k}: {format_value(v["old_value"], depth)}\n'
+                raw_res += f'{tab}  + {k}: {format_value(v["new_value"], depth)}\n'
+            case "nested":
+                raw_res += f'{tab}    {k}: {to_stylish(v["value"], depth + 1)}\n'
+    res = (raw_res + tab + "}").replace('\"', '').replace(",", "")
+    return res
