@@ -8,5 +8,6 @@ def parse(file, ext):
         case '.json':
             return json.load(open(file))
         case '.yml' | '.yaml':
-            return yaml.load(open(file), Loader=yaml.FullLoader)
-    
+            return yaml.safe_load(open(file))
+        case _:
+            raise ValueError("Недопустимое расширение файла")
