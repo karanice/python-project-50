@@ -1,35 +1,21 @@
-def make_diff_tree(file1, file2):
+def make_diff_tree(data1, data2):
+    keys = sorted(data1.keys() | data2.keys())
     result = {}
-    keys1 = set(file1.keys())
-    keys2 = set(file2.keys())
+    for key in keys:
+        if key not in data2:
+            result[key] = {'type': 'removed', 'value': data1[key]}
+        elif key not in data1:
+            result[key] = {'type': 'added', 'value': data2[key]}
 
-    all_keys = sorted(list(keys1.union(keys2)))
+        elif isinstance(data1[key], dict) and isinstance(data2[key], dict):
+            result[key] = {
+                'type': 'nested', 'value': make_diff_tree(data1[key], data2[key]),
+            }
 
-    has1 = keys1.difference(keys2)
-    has2 = keys2.difference(keys1)
-    common = keys1.intersection(keys2)
-
-    for key in all_keys:
-
-        cond1 = (key in has1)
-        cond2 = (key in has2)
-        cond3 = (key in common and (type(file1[key]) is not type(file2[key])))
-        cond4 = (key in common and not (type(file1[key]) is dict or
-                                        type(file2[key]) is dict))
-        if (cond1 or cond2 or cond3 or cond4):
-            # тут костыли в виде скобок этих, 
-            # не получилось с +\- перед ключом сделать,
-            # там отступы ломаются чудовищным образом
-            if cond1:
-                result[f'{key}(removed)'] = file1[key]
-            elif cond2:
-                result[f'{key}(added)'] = file2[key]
-            elif file1[key] == file2[key]:
-                result[f'{key}(not changed)'] = file1[key]
-            else:
-                result[f'{key}(removed)'] = file1[key]
-                result[f'{key}(added)'] = file2[key]
+        elif data1[key] != data2[key]:
+            result[key] = {'type': 'updated',
+                           'old_value': data1[key], 'new_value': data2[key]}
         else:
-            result[f'{key}(not changed)'] = make_diff_tree(file1[key], file2[key])
+            result[key] = {'type': 'unchanged', 'value': data1[key]}
 
     return result
