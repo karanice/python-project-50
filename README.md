@@ -11,15 +11,25 @@ This project is made with `uv` package manager and `argparse` library. `ruff` is
 ### Description
 
 This cli-app is designed for finding the difference between two tree sructures. \
+\
 The following formats are supported: JSON, YAML. \
 The type of output can be customized using the available formatters. \
-Function `generate-diff` for generating an internal representation of difference (as python dict) can be also imported from package.
+\
+Function `generate-diff` can be also imported from package. 
 
 ### Installation 
 
 Program can be installed via github:
 
 `git clone git@github.com:karanice/python-project-50.git`
+
+Then, entering the folder `python-project-50`, use make-commands:\
+\
+`make unpack` for brief package installation\
+\
+and\
+\
+`make remove-package` for removing package.
 
 ### JSON
 
