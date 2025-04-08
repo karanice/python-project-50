@@ -1,6 +1,5 @@
 from pathlib import Path
 from gendiff.generate_diff import generate_diff
-from gendiff.styles import format_diff
 
 
 def get_test_data_path(filename):
@@ -54,12 +53,3 @@ def test_to_plain_tree_json():
     actual = generate_diff(tree_json1, tree_json2, 'plain')
 
     assert actual == expected
-
-
-# def test_to_json_tree_json():
-#     tree_json1 = get_test_data_path('file1_tree.json')
-#     tree_json2 = get_test_data_path('file2_tree.json')
-#     expected = read_file('tree_diff_json.txt')
-#     actual = format_diff(generate_diff(tree_json1, tree_json2), 'json')
-
-#     assert actual == expected

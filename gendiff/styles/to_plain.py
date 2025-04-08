@@ -18,7 +18,8 @@ def to_plain(diff, prfx=''):
         match v["type"]:
             case "added":
                 res_strs.append(f'Property \'{prfx}{k}\' '
-                               f'was added with value: {format_value(v["value"])}')
+                                f'was added with value: '
+                                f'{format_value(v["value"])}')
             case "removed":
                 res_strs.append(f'Property \'{prfx}{k}\' was removed')
             case "updated":

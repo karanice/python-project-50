@@ -9,7 +9,8 @@ def make_diff_tree(data1, data2):
 
         elif isinstance(data1[key], dict) and isinstance(data2[key], dict):
             result[key] = {
-                'type': 'nested', 'value': make_diff_tree(data1[key], data2[key]),
+                'type': 'nested', 'value': make_diff_tree(data1[key],
+                                                          data2[key]),
             }
 
         elif data1[key] != data2[key]:

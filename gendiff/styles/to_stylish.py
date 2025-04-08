@@ -21,19 +21,19 @@ def format_value(value, depth):
 
 def to_stylish(diff, depth=0):
     tab = "    " * depth
-    raw_res = "{\n"
+    raw = "{\n"
     for k, v in diff.items():
         match v["type"]:
             case "unchanged":
-                raw_res += f'{tab}    {k}: {format_value(v["value"], depth)}\n'
+                raw += f'{tab}    {k}: {format_value(v["value"], depth)}\n'
             case "added":
-                raw_res += f'{tab}  + {k}: {format_value(v["value"], depth)}\n'
+                raw += f'{tab}  + {k}: {format_value(v["value"], depth)}\n'
             case "removed":
-                raw_res += f'{tab}  - {k}: {format_value(v["value"], depth)}\n'
+                raw += f'{tab}  - {k}: {format_value(v["value"], depth)}\n'
             case "updated":
-                raw_res += f'{tab}  - {k}: {format_value(v["old_value"], depth)}\n'
-                raw_res += f'{tab}  + {k}: {format_value(v["new_value"], depth)}\n'
+                raw += f'{tab}  - {k}: {format_value(v["old_value"], depth)}\n'
+                raw += f'{tab}  + {k}: {format_value(v["new_value"], depth)}\n'
             case "nested":
-                raw_res += f'{tab}    {k}: {to_stylish(v["value"], depth + 1)}\n'
-    res = (raw_res + tab + "}").replace('\"', '').replace(",", "")
+                raw += f'{tab}    {k}: {to_stylish(v["value"], depth + 1)}\n'
+    res = (raw + tab + "}").replace('\"', '').replace(",", "")
     return res
