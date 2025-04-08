@@ -1,14 +1,16 @@
 install:
 	uv sync
 
-lint:
-	uv run ruff check gendiff
-
 build:
 	uv build
 
 package-install:
 	uv tool install dist/*.whl
+
+unpack: install build package-install
+
+lint:
+	uv run ruff check gendiff
 
 test:
 	uv run pytest
